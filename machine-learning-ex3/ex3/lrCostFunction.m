@@ -17,34 +17,15 @@ grad = zeros(size(theta));
 %               You should set J to the cost.
 %               Compute the partial derivatives and set grad to the partial
 %               derivatives of the cost w.r.t. each parameter in theta
-%
-% Hint: The computation of the cost function and gradients can be
-%       efficiently vectorized. For example, consider the computation
-%
-%           sigmoid(X * theta)
-%
-%       Each row of the resulting matrix will contain the value of the
-%       prediction for that example. You can make use of this to vectorize
-%       the cost function and gradient computations. 
-%
-% Hint: When computing the gradient of the regularized cost function, 
-%       there're many possible vectorized solutions, but one solution
-%       looks like:
-%           grad = (unregularized gradient for logistic regression)
-%           temp = theta; 
-%           temp(1) = 0;   % because we don't add anything for j = 0  
-%           grad = grad + YOUR_CODE_HERE (using the temp variable)
-%
+
+theta_t = theta;
+theta_t(1) = 0
 
 J = (-y' * log(sigmoid(X*theta)) - (1-y)'*log(1 - sigmoid(X*theta))) / m;
-J = J + (lambda * sum(t_theta.^2) / (2*m));
+J = J + (lambda * sum(theta_t.^2) / (2*m));
 
-grad = (X' * (sigmoid(X*theta)-y) + lambda*theta ) / m;
-theta_t = theta;
-tetha_t(1) = 0;
-grad = grad + (lambda*theta / m);
-
-
+grad = X' * (sigmoid(X*theta)-y ) / m;
+grad = grad + (lambda*theta_t / m);
 
 % =============================================================
 
