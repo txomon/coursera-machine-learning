@@ -57,6 +57,7 @@ options = optimset('GradObj', 'on', 'MaxIter', 50);
 
 % Run fmincg to obtain the optimal theta
 % This function will return theta and the cost 
+all_theta = [];
 for i=1:num_labels
   theta = fmincg (
     @(t)(lrCostFunction(t, X, (y == i), lambda)), 

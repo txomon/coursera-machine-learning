@@ -20,23 +20,12 @@ p = zeros(size(X, 1), 1);
 %       information see 'help max'. If your examples are in rows, then, you
 %       can use max(A, [], 2) to obtain the max for each row.
 %
-
-p = sigmoid(
-  Theta2 
-  * 
-  cat(
-    2, 
-    ones(num_labels), 
-    sigmoid(
-      Theta1 
-      * 
-      cat(
-        2, 
-        ones(m), 
-        X)
-      )
-    )
-  )
+a0 = cat(2, ones(m, 1), X);
+a1 = cat(2, ones(m, 1), sigmoid(a0*Theta1'));
+computation = sigmoid(a1*Theta2');
+column_max = max(computation, [], 2);
+[i, p] = find(computation==column_max);
+p = sortrows([i p], [1])(:,2);
 
 % =========================================================================
 
