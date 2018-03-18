@@ -63,22 +63,22 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 
+X_1 = cat(2, ones(m, 1), X);
+X_2_sigma = sigmoid(X_1*Theta1');
+X_2 = cat(2, ones(size(X_2_sigma, 1), 1), X_2_sigma);
+X_3_sigma = sigmoid(X_2*Theta2');
 
+y_k = [];
+for label = 1: num_labels
+  y_k = cat(2, y_k, y == label);
+endfor
 
+X_3 = (-y_k .* log(X_3_sigma) - (1-y_k) .* log(1-X_3_sigma)) / m;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+t1_1 = Theta1(:, 2:end).^2;
+t2_1 = Theta2(:, 2:end).^2;
+J = (sum(t1_1(:)) + sum(t2_1(:))) .* (lambda/(2*m));
+J += sum(sum(X_3));
 
 % -------------------------------------------------------------
 
