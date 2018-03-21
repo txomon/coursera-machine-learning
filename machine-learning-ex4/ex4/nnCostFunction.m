@@ -84,20 +84,19 @@ J += sum(sum(cost));
 
 % -------------------------------------------------------------
 
-Delta_1_0 = [];
-Delta_2_0 = [];
-  
+Theta1_0 = Theta1(:, 2:end);
+Theta2_0 = Theta2(:, 2:end);
+
 delta_3 = a3 - y_k;
-delta_2 = (delta_3 * Theta2)(:,2:end) .* sigmoidGradient(z2);
+sgz2 = cat(2, ones(size(z2,1),1), sigmoidGradient(z2)) ;
+delta_2 = (delta_3 * Theta2) .* sgz2;
+delta_2 = delta_2(:, 2:end);
 
-Delta_2 = (delta_3' * a2)/m;
-Delta_1 = (delta_2' * a1)/m;
+Delta_2 = (delta_3' * a2_0)/m;
+Delta_1 = (delta_2' * a1_0)/m;
 
-Theta2_grad = cat(2, zeros(size(Delta_2, 1),1) , Delta_2);
-Theta1_grad = cat(2, zeros(size(Delta_1, 1),1) , Delta_1);
-
-Theta2_grad += cat(2, zeros(size(Theta2_grad, 1), 1), lambda*t2_1/m);
-Theta1_grad += cat(2, zeros(size(Theta1_grad, 1), 1), lambda*t1_1/m);
+Theta2_grad = Delta_2 + cat(2, zeros(size(Theta2_grad, 1), 1), lambda*Theta2_0/m);
+Theta1_grad = Delta_1 + cat(2, zeros(size(Theta1_grad, 1), 1), lambda*Theta1_0/m);
 
 
 % =========================================================================
