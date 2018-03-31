@@ -13,12 +13,11 @@ centroids = zeros(K, size(X, 2));
 %               the dataset X
 %
 
+centroids = [];
 
-
-
-
-
-
+for centroid_index=1:K
+  centroids = [centroids; X( randi([1, size(X,1)]), : )];
+endfor
 
 % =============================================================
 

@@ -25,13 +25,13 @@ centroids = zeros(K, n);
 %
 % Note: You can use a for-loop over the centroids to compute this.
 %
+centroids = [];
 
-
-
-
-
-
-
+for centroid_index=1:K
+  grouped_centroids = X(idx == centroid_index, :);
+  new_centroid = mean(grouped_centroids);
+  centroids = [centroids; new_centroid];
+endfor
 
 % =============================================================
 
