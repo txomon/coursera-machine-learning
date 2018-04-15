@@ -41,19 +41,13 @@ Theta_grad = zeros(size(Theta));
 %
 
 
+all_costs = (X * Theta' - Y) .^ 2;
+J = sum(all_costs(R==1)) / 2;
+J += lambda * sum(sum(X.^2)) / 2;
+J += lambda * sum(sum(Theta.^2)) / 2;
 
-
-
-
-
-
-
-
-
-
-
-
-
+X_grad = ((X * Theta' - Y) .* R) * Theta + lambda .* X;
+Theta_grad = ((X * Theta' - Y) .* R)' *  X + lambda .* Theta;
 
 % =============================================================
 

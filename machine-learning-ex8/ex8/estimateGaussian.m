@@ -23,9 +23,9 @@ sigma2 = zeros(n, 1);
 
 
 
+mu = mean(X);
 
-
-
+sigma2 = mean((X - mu) .^ 2);
 
 
 
